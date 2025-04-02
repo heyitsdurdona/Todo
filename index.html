@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="./src/output.css">
+    <style>
+        #taskList {
+            max-height: 400px;
+            overflow-y: auto;           
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER START -->
+    <header class="bg-light bg-no-repeat w-full bg-cover bg-center h-[38vh]">
+        <div class="mx-auto max-w-[580px] w-full px-4">
+            <div class="flex justify-between pt-[70px] pb-[48px]">
+                <a href="./index.html">
+                    <img src="./images/logo.svg" alt="todo logo">
+                </a>
+                <img id="theme" src="./images/moon.svg" alt="moon img">
+            </div> 
+            <!-- new task input -->
+            <div>
+                <form id="newTaskForm" class="relative mb-6">
+                    <span id="circle" class="w-6 h-6 border-2 border-solid border-[#E3E4F1] rounded-[50%] absolute top-5 left-4"></span>
+                    <input name="input" id="newTaskInput" class="pl-14 py-5 px-6 w-full bg-white rounded-[5px] focus:outline-none focus: ring-0" type="text" placeholder="Create a new todo..." required minlength="5">
+                </form>
+                
+                <ul id="taskList" class="flex flex-col gap-0 bg-white shadow-md  rounded-[5px]">               
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    
+    <!-- temple for li tasks to add to ul -->
+    <template id="temp">
+        <li class="list-none flex justify-between py-5 px-6">
+            <div class="flex gap-[24px] items-center">
+                <img id="checked" src="./images/circle.svg" alt="img">
+                <h3>Something</h3>
+            </div>
+            <img class="cursor-pointer" id="deleteImg" src="./images/delete.svg" alt="delete img">
+        </li>
+    </template>
+
+    <template id="footerTemp">
+        <li id="footerLi" class="flex items-center justify-between py-5 px-6 cursor-pointer sticky bottom-0 z-10 bg-white">
+            <span class="cursor-pointer">0 items left</span>
+            <div class="flex items-center gap-[20px]">
+                <p id="all" class="text-[#9495A5] font-bold text-[14px] hover:text-blue-700">All</p>
+                <p id="active" class="text-[#9495A5] font-bold text-[14px] hover:text-blue-700">Active</p>
+                <p id="completed" class="text-[#9495A5] font-bold text-[14px] hover:text-blue-700">Completed</p>
+            </div>
+            <span class="cursor-pointer">Clear Completed</span>
+        </li> 
+    </template>
+    
+    <!-- HEADER END -->
+    
+    
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
