@@ -6,10 +6,13 @@ export function uiRender(todo, type){
     todo[type].forEach(el =>{
         let clone = elTemp.content.cloneNode(true);
         const title = clone.querySelector('h3');
-        const li = clone.querySelector('li')
+        const li = clone.querySelector('li');
+        const img = clone.querySelector('#checked');
 
         li.dataset.id = el.id;
         title.innerText = el.title;
+
+        img.src = el.isCompleted ? './images/checked-circle.svg' : './images/circle.svg';
         elTaskList.append(clone);
     });
     if (todo[type].length > 0) {
