@@ -34,6 +34,7 @@ elNewTaskForm.addEventListener('submit', function (evt) {
 
 // Click event for ul
 elTaskList.addEventListener('click', function (evt) {
+    const li = evt.target.closest('li');
     // deleting a task when we click to a delete img
     if (evt.target.matches('#deleteImg')) {
         const li = evt.target.closest('li');
@@ -44,16 +45,27 @@ elTaskList.addEventListener('click', function (evt) {
 
     // add the task to the complited when we check the checkbox
     if (evt.target.matches('#checked')) {
-        const li = evt.target.closest('li');
-        const title = li.querySelector('h3').innerText;
         const elId = li.dataset.id;
-        todos = removeTodo(todos, 'active', elId);       
+        const taskIndex = todos.active.findIndex(task => task.id ==elId);
 
-        todos['completed'].push({title: title, isCompleted: true, id: elId});
-        console.log(todos);
-
-        evt.target.src = ('./images/checked-circle.svg')
-        localStorage.setItem('tasks', JSON.stringify(todos));
+        if (taskIndex !== -1){
+            const completedTask = {...todos.active[taskIndex], isCompleted: true};
+            todos.completed.push(completedTask);
+            todos.active.splice(taskIndex, 1);
+            evt.target.src = './images/checked-circle.svg'
+            console.log(evt.target.src)
+            console.log(todos)
+        } else {
+            const completedTaskIndex = todos.completed.findIndex(task => task.id === elId);
+            const activeTask = { ...todos.completed[completedTaskIndex], isCompleted: false };
+            todos.active.push(activeTask);
+            todos.completed.splice(completedTaskIndex, 1);
+            evt.target.src = './images/circle.svg'
+            console.log(evt.target.src)
+            console.log(todos)
+        }
+        
+        
     }
 
     if(evt.target.matches('#all')){
@@ -77,6 +89,44 @@ elTaskList.addEventListener('click', function (evt) {
 
 });
 
+
+
+// elTaskList.addEventListener('click', function (evt) {
+//     const li = evt.target.closest('li');
+//     if (!li) return; // Ensure li exists
+
+//     // Check if the clicked element is the checked-circle
+//     if (evt.target.matches('#checked')) {
+//         const elId = li.dataset.id;
+//         const taskIndex = todos.active.findIndex(task => task.id === elId);
+        
+//         if (taskIndex !== -1) {
+//             // Task is currently active, move it to completed
+//             const completedTask = { ...todos.active[taskIndex], isCompleted: true };
+//             todos.completed.push(completedTask);
+//             todos.active.splice(taskIndex, 1); // Remove from active
+//             evt.target.src = './images/checked-circle.svg'; // Change the icon
+//         } else {
+//             // Task is currently completed, move it back to active
+//             const completedTaskIndex = todos.completed.findIndex(task => task.id === elId);
+//             const activeTask = { ...todos.completed[completedTaskIndex], isCompleted: false };
+//             todos.active.push(activeTask);
+//             todos.completed.splice(completedTaskIndex, 1); // Remove from completed
+//             evt.target.src = './images/circle.svg'; // Change the icon back
+//         }
+
+//         // Update local storage and re-render the UI
+//         localStorage.setItem('tasks', JSON.stringify(todos));
+//         uiRender(todos, 'all'); // Render all tasks to reflect changes
+//     }
+
+//     // Handle delete action
+//     if (evt.target.matches('.deleteImg')) {
+//         todos = removeTodo(todos, 'active', li.dataset.id);
+//         localStorage.setItem('tasks', JSON.stringify(todos));
+//         uiRender(todos, 'active');        
+//     }
+// });
 
 
 elTaskList.addEventListener('mouseenter', function(evt){

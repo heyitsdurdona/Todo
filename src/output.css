@@ -10,8 +10,6 @@
     --color-blue-700: oklch(0.488 0.243 264.376);
     --color-white: #fff;
     --spacing: 0.25rem;
-    --text-2xl: 1.5rem;
-    --text-2xl--line-height: calc(2 / 1.5);
     --font-weight-bold: 700;
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
@@ -457,9 +455,6 @@
   }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
   }
   .w-1\/2 {
     width: calc(1/2 * 100%);
@@ -1877,32 +1872,6 @@
   }
   .transform-view {
     transform-box: view-box;
-  }
-  .\*\:text-2xl {
-    :is(& > *) {
-      font-size: var(--text-2xl);
-      line-height: var(--tw-leading, var(--text-2xl--line-height));
-    }
-  }
-  .\*\:text-\[30px\] {
-    :is(& > *) {
-      font-size: 30px;
-    }
-  }
-  .\*\:text-\[3\] {
-    :is(& > *) {
-      color: 3;
-    }
-  }
-  .\*\:text-\[30\] {
-    :is(& > *) {
-      color: 30;
-    }
-  }
-  .\*\:text-\[30p\] {
-    :is(& > *) {
-      color: 30p;
-    }
   }
   .hover\:text-blue-700 {
     &:hover {
