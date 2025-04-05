@@ -1,9 +1,10 @@
 import { elFooterTemp, elTaskList, elTemp } from "./html-elements.js";
 
-// rendering todo[type] to ui by taking clone from elTemp template and adding it to elTaskList ul
 export function uiRender(todo, type){
     elTaskList.innerHTML = '';
-    todo[type].forEach(el =>{
+    let tasksToRender = type === 'all' ? [...todo.active, ...todo.completed] : todo[type];
+    
+    tasksToRender.forEach(el =>{
         let clone = elTemp.content.cloneNode(true);
         const title = clone.querySelector('h3');
         const li = clone.querySelector('li');
@@ -15,7 +16,7 @@ export function uiRender(todo, type){
         img.src = el.isCompleted ? './images/checked-circle.svg' : './images/circle.svg';
         elTaskList.append(clone);
     });
-    if (todo[type].length > 0) {
+    if (tasksToRender.length > 0) {
         let footClone = elFooterTemp.content.cloneNode(true); 
         elTaskList.append(footClone);
     } 
