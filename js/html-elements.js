@@ -8,5 +8,6 @@ const elClearCompleted = document.getElementById('clearCompleted');
 const elTheme = document.getElementById('theme');
 const elAdd = document.getElementById('add');
 const elRemove = document.getElementById('remove');
+const elClick = document.getElementById('click');
 
-export {elNewTaskForm, elNewTaskInput, elTaskList, elTemp, elFooterTemp, elFooterLi, elClearCompleted, elTheme, elAdd, elRemove}
+export {elNewTaskForm, elNewTaskInput, elTaskList, elTemp, elFooterTemp, elFooterLi, elClearCompleted, elTheme, elAdd, elRemove, elClick}

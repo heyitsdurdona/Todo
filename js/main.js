@@ -1,4 +1,4 @@
-import { elFooterLi, elNewTaskForm, elTaskList, elTheme, elAdd, elRemove } from "./html-elements.js";
+import { elFooterLi, elNewTaskForm, elTaskList, elTheme, elAdd, elRemove, elClick } from "./html-elements.js";
 import { uiRender, removeTodo } from "./ui-render.js";
 
 
@@ -86,7 +86,7 @@ elTaskList.addEventListener('click', function (evt) {
 
     // add the task to the complited when we check the checkbox
     if (evt.target.matches('#checked')) {
-        elRemove.play();
+        elClick.play();
         const elId = li.dataset.id;
         console.log(elId)
         const taskIndex = todos.active.findIndex(task => task.id ==elId);
@@ -123,32 +123,38 @@ elTaskList.addEventListener('click', function (evt) {
 
     // rendering task accoring to currentFilter
     if(evt.target.matches('#all')){
+        elClick.play();
         currentFilter = 'all';
         uiRender(todos, currentFilter);
         console.log('all clicked')
     }
 
     if(evt.target.matches('#active')){
+        elClick.play();
         if(todos['active'].length > 0){
             currentFilter = 'active';
             uiRender(todos, currentFilter);
             console.log('active clicked')
         } else{
+            alert('No active tasks');
             console.log('nothing to render')
         }
     }
 
     if(evt.target.matches('#completed')){
+        elClick.play();
         if (todos['completed'].length > 0){
             currentFilter = 'completed';
             uiRender(todos, currentFilter);
             console.log('completed clicked')
         } else{
+            alert('No completed tasks');
             console.log('nothing to render')
         }
     }
 
     if(evt.target.matches('#clearCompleted') && evt.target.tagName === 'SPAN'){
+        elRemove.play();
         todos.completed = [];
         localStorage.setItem('tasks', JSON.stringify(todos));
         uiRender(todos, currentFilter);
