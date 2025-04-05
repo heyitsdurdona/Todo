@@ -27,6 +27,8 @@ header {
     --input-text-color: #767992;
     --border-color: #E3E4F1;
     --footer-bg-color: #ffffff;
+    --scrollbar-thumb: #E3E4F1;
+    --scrollbar-track: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -36,6 +38,8 @@ header {
     --input-text-color: #C8CBE7;
     --border-color: #393A4B;
     --footer-bg-color: #25273D;
+    --scrollbar-thumb: #393A4B;
+    --scrollbar-track: #25273D;
 }
 
 body {
@@ -72,4 +76,22 @@ li {
 
 .checkedStyle {
     @apply line-through text-[#D1D2DA] leading-[-0.01em] text-[18px];
+}
+
+/* Custom scrollbar styles */
+#taskList::-webkit-scrollbar {
+    width: 6px;
+}
+
+#taskList::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+#taskList::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 3px;
+}
+
+#taskList::-webkit-scrollbar-thumb:hover {
+    background: var(--border-color);
 }

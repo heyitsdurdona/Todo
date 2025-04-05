@@ -1,5 +1,6 @@
-import { elFooterLi, elNewTaskForm, elTaskList, elTheme } from "./html-elements.js";
+import { elFooterLi, elNewTaskForm, elTaskList, elTheme, elAdd, elRemove } from "./html-elements.js";
 import { uiRender, removeTodo } from "./ui-render.js";
+
 
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.dataset.theme = savedTheme;
@@ -7,12 +8,21 @@ elTheme.src = savedTheme === 'dark' ? './images/sun.svg' : './images/moon.svg';
 
 // dark/light theme
 elTheme.addEventListener('click', function(evt){
+    elAdd.play();
     const currentTheme = document.documentElement.dataset.theme;
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.dataset.theme = newTheme;
     evt.target.src = newTheme === 'dark' ? './images/sun.svg' : './images/moon.svg';
+
+    const circleImages = document.querySelectorAll('#checked');
+    circleImages.forEach(img => {
+        if (!img.src.includes('checked-circle')) {
+            img.src = newTheme === 'dark' ? '../images/dark-circle.svg' : './images/circle.svg';
+        }
+    });
     localStorage.setItem('theme', newTheme);
 });
+
 
 // loading tasks
 export let todos = JSON.parse(localStorage.getItem('tasks')) || {
@@ -37,12 +47,13 @@ elNewTaskForm.addEventListener('input', function (evt) {
 
 // adding new task
 elNewTaskForm.addEventListener('submit', function (evt) {
+    elAdd.play();
     evt.preventDefault();
     let taskText = evt.target.input.value;
     currentFilter = 'active';
     todos[currentFilter].push({ title: taskText, isCompleted: false, id: Date.now().toString() });
     localStorage.setItem('tasks', JSON.stringify(todos)); 
-    uiRender(todos, currentFilter);
+    uiRender(todos, 'all');
     evt.target.reset();
 });
 
@@ -52,6 +63,7 @@ elTaskList.addEventListener('click', function (evt) {
     const li = evt.target.closest('li');
     // deleting a task when we click to a delete img
     if (evt.target.matches('#deleteImg')) {
+        elRemove.play();
         const taskId = li.dataset.id;
         console.log(taskId)
         const isInActive = todos.active.some(task => task.id === taskId);
@@ -74,6 +86,7 @@ elTaskList.addEventListener('click', function (evt) {
 
     // add the task to the complited when we check the checkbox
     if (evt.target.matches('#checked')) {
+        elRemove.play();
         const elId = li.dataset.id;
         console.log(elId)
         const taskIndex = todos.active.findIndex(task => task.id ==elId);
