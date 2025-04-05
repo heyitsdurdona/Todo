@@ -1,5 +1,18 @@
-import { elFooterLi, elNewTaskForm, elTaskList } from "./html-elements.js";
+import { elFooterLi, elNewTaskForm, elTaskList, elTheme } from "./html-elements.js";
 import { uiRender, removeTodo } from "./ui-render.js";
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.dataset.theme = savedTheme;
+elTheme.src = savedTheme === 'dark' ? './images/sun.svg' : './images/moon.svg';
+
+// dark/light theme
+elTheme.addEventListener('click', function(evt){
+    const currentTheme = document.documentElement.dataset.theme;
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = newTheme;
+    evt.target.src = newTheme === 'dark' ? './images/sun.svg' : './images/moon.svg';
+    localStorage.setItem('theme', newTheme);
+});
 
 // loading tasks
 export let todos = JSON.parse(localStorage.getItem('tasks')) || {
@@ -46,6 +59,9 @@ elTaskList.addEventListener('click', function (evt) {
         
         if (isInActive) {
             todos = removeTodo(todos, 'active', taskId);
+            if (currentFilter === 'active' && todos.active.length === 0) {
+                currentFilter = 'all';
+            }
         } else if (isInCompleted) {
             todos = removeTodo(todos, 'completed', taskId);
             if (currentFilter === 'completed' && todos.completed.length === 0) {
@@ -53,7 +69,7 @@ elTaskList.addEventListener('click', function (evt) {
             }
         }
         localStorage.setItem('tasks', JSON.stringify(todos));
-        uiRender(todos, currentFilter); 
+        uiRender(todos, currentFilter);
     }
 
     // add the task to the complited when we check the checkbox
@@ -67,6 +83,9 @@ elTaskList.addEventListener('click', function (evt) {
             const completedTask = {...todos.active[taskIndex], isCompleted: true};
             todos.completed.push(completedTask);
             todos.active.splice(taskIndex, 1);
+            if (currentFilter === 'active' && todos.active.length === 0) {
+                currentFilter = 'all';
+            }
             evt.target.src = './images/checked-circle.svg';
             localStorage.setItem('tasks', JSON.stringify(todos));
             console.log(evt.target.src)
@@ -76,6 +95,10 @@ elTaskList.addEventListener('click', function (evt) {
             const activeTask = { ...todos.completed[completedTaskIndex], isCompleted: false };
             todos.active.push(activeTask);
             todos.completed.splice(completedTaskIndex, 1);
+
+            if (currentFilter === 'completed' && todos.completed.length === 0) {
+                currentFilter = 'all';
+            }
             evt.target.src = './images/circle.svg';
             localStorage.setItem('tasks', JSON.stringify(todos));
             console.log(evt.target.src)
@@ -119,3 +142,5 @@ elTaskList.addEventListener('click', function (evt) {
     }
 
 });
+
+

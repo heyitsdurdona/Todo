@@ -26,7 +26,7 @@ header {
     --background-color-input: #ffffff;
     --input-text-color: #767992;
     --border-color: #E3E4F1;
-    
+    --footer-bg-color: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -35,6 +35,7 @@ header {
     --background-color-input: #25273D;
     --input-text-color: #C8CBE7;
     --border-color: #393A4B;
+    --footer-bg-color: #25273D;
 }
 
 body {
@@ -51,8 +52,24 @@ input::placeholder, span{
 }
 li {
     border-bottom: 1px solid var(--border-color);
+    background-color: var(--background-color-input);
 } 
 
+
+#footerLi {
+    background-color: var(--footer-bg-color);
+    backdrop-filter: blur(10px);
+    background-color: rgba(var(--footer-bg-color-rgb), 0.9);
+}
+
+[data-theme="light"] #footerLi {
+    --footer-bg-color-rgb: 255, 255, 255;
+}
+
+[data-theme="dark"] #footerLi {
+    --footer-bg-color-rgb: 37, 39, 61;
+}
+
 .checkedStyle {
-    @apply line-through text-[#D1D2DA] leading-[-0.01em] text-[18px] font-regular;
+    @apply line-through text-[#D1D2DA] leading-[-0.01em] text-[18px];
 }
