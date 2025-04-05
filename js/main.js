@@ -53,7 +53,7 @@ elNewTaskForm.addEventListener('submit', function (evt) {
     currentFilter = 'active';
     todos[currentFilter].push({ title: taskText, isCompleted: false, id: Date.now().toString() });
     localStorage.setItem('tasks', JSON.stringify(todos)); 
-    uiRender(todos, 'all');
+    uiRender(todos, currentFilter);
     evt.target.reset();
 });
 

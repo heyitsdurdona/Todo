@@ -18,7 +18,8 @@ export function uiRender(todo, type){
             img.src = './images/checked-circle.svg';
         } else {
             title.classList.remove('checkedStyle');
-            img.src = './images/circle.svg';
+            const currentTheme = document.documentElement.dataset.theme;
+            img.src = currentTheme === 'dark' ? './images/dark-circle.svg' : './images/circle.svg';
         }
         
         elTaskList.append(clone);
