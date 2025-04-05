@@ -9,15 +9,25 @@ export function uiRender(todo, type){
         const title = clone.querySelector('h3');
         const li = clone.querySelector('li');
         const img = clone.querySelector('#checked');
-
+        
         li.dataset.id = el.id;
         title.innerText = el.title;
-
-        img.src = el.isCompleted ? './images/checked-circle.svg' : './images/circle.svg';
+        
+        if (el.isCompleted) {
+            title.classList.add('checkedStyle');
+            img.src = './images/checked-circle.svg';
+        } else {
+            title.classList.remove('checkedStyle');
+            img.src = './images/circle.svg';
+        }
+        
         elTaskList.append(clone);
     });
     if (tasksToRender.length > 0) {
         let footClone = elFooterTemp.content.cloneNode(true); 
+        const counterSpan = footClone.querySelector('span');
+        const activeCount = todo.active.length;
+        counterSpan.textContent = `${activeCount} ${activeCount === 1 ? 'item' : 'items'} left`;
         elTaskList.append(footClone);
     } 
 }

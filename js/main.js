@@ -48,6 +48,9 @@ elTaskList.addEventListener('click', function (evt) {
             todos = removeTodo(todos, 'active', taskId);
         } else if (isInCompleted) {
             todos = removeTodo(todos, 'completed', taskId);
+            if (currentFilter === 'completed' && todos.completed.length === 0) {
+                currentFilter = 'all';
+            }
         }
         localStorage.setItem('tasks', JSON.stringify(todos));
         uiRender(todos, currentFilter); 
@@ -58,6 +61,7 @@ elTaskList.addEventListener('click', function (evt) {
         const elId = li.dataset.id;
         console.log(elId)
         const taskIndex = todos.active.findIndex(task => task.id ==elId);
+        li.classList.toggle('checkedStyle');
 
         if (taskIndex !== -1){
             const completedTask = {...todos.active[taskIndex], isCompleted: true};
@@ -78,7 +82,7 @@ elTaskList.addEventListener('click', function (evt) {
             console.log(todos)
         }
         
-        
+        uiRender(todos, currentFilter);
     }
 
     // rendering task accoring to currentFilter
@@ -106,6 +110,12 @@ elTaskList.addEventListener('click', function (evt) {
         } else{
             console.log('nothing to render')
         }
+    }
+
+    if(evt.target.matches('#clearCompleted') && evt.target.tagName === 'SPAN'){
+        todos.completed = [];
+        localStorage.setItem('tasks', JSON.stringify(todos));
+        uiRender(todos, currentFilter);
     }
 
 });

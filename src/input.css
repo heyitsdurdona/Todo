@@ -52,3 +52,7 @@ input::placeholder, span{
 li {
     border-bottom: 1px solid var(--border-color);
 } 
+
+.checkedStyle {
+    @apply line-through text-[#D1D2DA] leading-[-0.01em] text-[18px] font-regular;
+}

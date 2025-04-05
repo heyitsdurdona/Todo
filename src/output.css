@@ -456,9 +456,6 @@
   .min-h-screen {
     min-height: 100vh;
   }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
-  }
   .w-1\/2 {
     width: calc(1/2 * 100%);
   }
@@ -1430,6 +1427,9 @@
   .text-\[\#9495A5\] {
     color: #9495A5;
   }
+  .text-blue-700 {
+    color: var(--color-blue-700);
+  }
   .capitalize {
     text-transform: capitalize;
   }
@@ -1926,6 +1926,13 @@ input::placeholder, span {
 }
 li {
   border-bottom: 1px solid var(--border-color);
+}
+.checkedStyle {
+  font-size: 18px;
+  --tw-leading: -0.01em;
+  line-height: -0.01em;
+  color: #D1D2DA;
+  text-decoration-line: line-through;
 }
 @property --tw-translate-x {
   syntax: "*";
