@@ -1,4 +1,4 @@
-import { elFooterLi, elNewTaskForm, elTaskList, elTheme, elAdd, elRemove, elClick } from "./html-elements.js";
+import { elNewTaskForm, elTaskList, elTheme, elAdd, elRemove, elClick } from "./html-elements.js";
 import { uiRender, removeTodo } from "./ui-render.js";
 
 
@@ -50,8 +50,8 @@ elNewTaskForm.addEventListener('submit', function (evt) {
     elAdd.play();
     evt.preventDefault();
     let taskText = evt.target.input.value;
-    currentFilter = 'active';
-    todos[currentFilter].push({ title: taskText, isCompleted: false, id: Date.now().toString() });
+    currentFilter = 'all';
+    todos['active'].push({ title: taskText, isCompleted: false, id: Date.now().toString() });
     localStorage.setItem('tasks', JSON.stringify(todos)); 
     uiRender(todos, currentFilter);
     evt.target.reset();
@@ -116,8 +116,7 @@ elTaskList.addEventListener('click', function (evt) {
             localStorage.setItem('tasks', JSON.stringify(todos));
             console.log(evt.target.src)
             console.log(todos)
-        }
-        
+        }        
         uiRender(todos, currentFilter);
     }
 
@@ -157,7 +156,7 @@ elTaskList.addEventListener('click', function (evt) {
         elRemove.play();
         todos.completed = [];
         localStorage.setItem('tasks', JSON.stringify(todos));
-        uiRender(todos, currentFilter);
+        uiRender(todos, 'all');
     }
 
 });
